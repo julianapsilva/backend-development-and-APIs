@@ -4,6 +4,11 @@ console.log("Hello World")
 
 require('dotenv').config()
 
+app.use((req, res, next) => {
+    console.log(`${req.method} ${req.path} - ${req.ip}`)
+    next()
+})
+
 app.get("/", (req, res) => {
     const absolutePath = __dirname + '/views/index.html'
     res.sendFile(absolutePath)
@@ -21,8 +26,7 @@ app.get("/json", (req, res) => {
     if (process.env.MESSAGE_STYLE == "uppercase")
         res.json({ message: "Hello json".toUpperCase() })
     else
-        res.json({ message: "Hello json"})
-    
+        res.json({ message: "Hello json"}) 
 })
 
 
